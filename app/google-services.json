@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "112279290555",
+    "project_id": "aitforum-c72db",
+    "storage_bucket": "aitforum-c72db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:112279290555:android:cab31ece805f0bd7899f9e",
+        "android_client_info": {
+          "package_name": "hu.ait.aitforum"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBys057rLa-1LTjOaJhvwDhvBRZcQGkDEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
