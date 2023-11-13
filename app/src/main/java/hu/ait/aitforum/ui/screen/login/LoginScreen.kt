@@ -22,25 +22,30 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.autofill.AutofillType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    loginViewModel: LoginScreenViewModel
+    loginViewModel: LoginScreenViewModel = viewModel(),
+    onLoginSuccess: () -> Unit
 ) {
     var showPassword by rememberSaveable { mutableStateOf(false) }
     var email by rememberSaveable { mutableStateOf("peter@ait.hu") }
     var password by rememberSaveable { mutableStateOf("123456") }
+
+    val coroutineScope = rememberCoroutineScope()
 
     Box() {
         Text(
@@ -98,7 +103,12 @@ fun LoginScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 OutlinedButton(onClick = {
-                    loginViewModel.loginUser(email, password)
+                    coroutineScope.launch {
+                        val result = loginViewModel.loginUser(email, password)
+                        if(result?.user != null) {
+                            onLoginSuccess()
+                        }
+                    }
                 }) {
                     Text(text = "Login")
                 }
